@@ -80,15 +80,15 @@
                 function render() {
                     console.log("rendering...")
                     return vm.getPeople()
-                        .then(onCompleteGetPeople)
+                        .then(onCompleteGetPeople);
                 }
 
                 function _getPeople() {
                     return $peopleService.getPeople()
-                        .then(fillPeopleItems)
+                        .then(fillAddressTable);
                 }
-                function fillPeopleItems(data) {
-                    console.log("u made it inside fill people");
+                function fillAddressTable(data) {
+                    console.log("In fillAddressTable success. data:", data);
                     vm.items = data;
 
                 }

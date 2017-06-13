@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data.SqlClient;
 
 namespace MyWebApp.Services
 {
@@ -11,10 +12,27 @@ namespace MyWebApp.Services
         public List<Person> GetPeople()
         {
             List<Person> peopleList = new List<Person>();
-            peopleList.Add(new Person() { Id = 1, FirstName = "Victor", LastName = "Campos" });
-            peopleList.Add(new Person() { Id = 1, FirstName = "craig", LastName = "Spreeman" });
-            peopleList.Add(new Person() { Id = 1, FirstName = "Tassia", LastName = "Paschoal" });
-            peopleList.Add(new Person() { Id = 1, FirstName = "Tassia", LastName = "Paschoal" });
+
+            string connString = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            using (SqlConnection sqlConn = new SqlConnection(connString))
+            {
+                ////using open and close connection without calling IDispose
+                using(SqlCommand cmd = new SqlCommand("People_SelectAll", sqlConn))
+                {
+                    sqlConn.Open();
+                    SqlDataReader reader = cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
+                    //returns a true or false
+                    while (reader.Read())
+                    {
+                        Person p = new Person();
+                        p.Id = reader.GetInt32(0);
+                        p.FirstName = reader.GetString(1);
+                        p.LastName = reader.GetString(2);
+                        p.Email = reader.GetString(3);
+                        p.Favorite = reader.GetBoolean(4);
+                    }
+                }
+            }
             return peopleList;
         }
     }
