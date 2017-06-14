@@ -17,5 +17,11 @@ namespace Project.Web.Controllers.Api
             List<Person> peopleList = peopleSvc.GetPeople();
             return Request.CreateResponse(HttpStatusCode.OK, peopleList);
         }
+
+        [Route("{id:int}"), HttpPut]
+        public HttpResponseMessage EditPeople()
+        {
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
     }
 }

@@ -1,0 +1,42 @@
+﻿@model MyWebApp.Models.ViewModels.ItemViewModel<int?>
+@{
+    ViewBag.Title = "Manage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style="padding-top:30px; text-align: center">Manage</h2>
+<input type="hidden" id="personId" value="@Model.Item" />
+<div class="container-fluid">
+    <form name="personForm" id="personForm" role="form" novalidate>
+        <div class="form-group">
+            <label class="col-form-label col-form-label-lg" for="firstName">First Name</label>
+            <input class="form-control form-control-lg" type="text" id="firstName">
+        </div>
+        <div class="form-group">
+            <label class="col-form-label col-form-label-lg" for="inputLarge">Last Name</label>
+            <input class="form-control form-control-lg" type="text" id="inputLarge">
+        </div>
+        <div class="form-group">
+            <label class="col-form-label col-form-label-lg" for="inputLarge">Large input</label>
+            <input class="form-control form-control-lg" type="text" id="inputLarge" />
+        </div>
+        <div class="form-group" ng-class="{ 'has-error' : personForm.recommended.$error.required && personForm.favorite.$touched}">
+            <label for="recommended">Recommended</label>
+            <select class="form-control" id="favorite" name="favorite"
+                    ng-model="person.item.favoriteString"
+                    ng-options="option as option for option in person.options" required>
+                <option value="">--Select Yes or No--</option>
+            </select>
+            <p class="help-block" ng-show="personForm.recommended.$error.required && personForm.recommended.$touched">Required</p>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<script type="text/javascript">
+    (function () {
+
+
+    })();
+
+</script>
