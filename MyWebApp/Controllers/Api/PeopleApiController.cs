@@ -18,8 +18,8 @@ namespace Project.Web.Controllers.Api
             return Request.CreateResponse(HttpStatusCode.OK, peopleList);
         }
 
-        [Route("{id:int}"), HttpPut]
-        public HttpResponseMessage EditPeople()
+        [Route(""), HttpPost]
+        public HttpResponseMessage PostPeople()
         {
             return Request.CreateResponse(HttpStatusCode.OK);
         }

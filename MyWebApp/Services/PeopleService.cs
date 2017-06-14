@@ -40,5 +40,39 @@ namespace MyWebApp.Services
             //return to Api Controller
             return peopleList;
         }
+
+        public int AddPerson(Person model)
+        {
+            int retval = 0;
+            //get connection string for database from the web.config
+            string connString = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            using (SqlConnection sqlConn = new SqlConnection(connString))
+            {
+                using (SqlCommand cmd = new SqlCommand("People_Insert", sqlConn))
+                {
+                    //grab the SQL stroed prodedure and insert user input into the parameters declared in the sql procedure
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@FirstName", model.FirstName);
+                    cmd.Parameters.AddWithValue("@LastName", model.LastName);
+                    cmd.Parameters.AddWithValue("@Email", model.Email);
+                    cmd.Parameters.AddWithValue("@Favorite", model.Favorite);
+
+                    //output the int ID identity column
+                    SqlParameter param = new SqlParameter();
+                    param.ParameterName = "@Id";
+                    param.SqlDbType = System.Data.SqlDbType.Int;
+                    param.Direction = System.Data.ParameterDirection.Output;
+
+                    //open the connection and call insert the model into the database.
+                    sqlConn.Open();
+                    cmd.ExecuteNonQuery();
+
+                    //the returned param is the identity column number generated in SQL.
+                    retval = (int)cmd.Parameters["@Id"].Value;
+
+                }
+            }
+            return retval;
+        }
     }
 }

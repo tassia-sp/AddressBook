@@ -25,7 +25,7 @@
             <select class="form-control" id="favorite" name="favorite"
                     ng-model="person.item.favoriteString"
                     ng-options="option as option for option in person.options" required>
-                <option value="">--Select Yes or No--</option>
+                <option value="">Select Yes or No</option>
             </select>
             <p class="help-block" ng-show="personForm.recommended.$error.required && personForm.recommended.$touched">Required</p>
         </div>
@@ -33,6 +33,9 @@
     </form>
 </div>
 
+@section scripts{
+
+<script src="~/Scripts/myWebApp/myWebApp.factory.people.js"></script>
 <script type="text/javascript">
     (function () {
 
@@ -40,3 +43,4 @@
     })();
 
 </script>
+}

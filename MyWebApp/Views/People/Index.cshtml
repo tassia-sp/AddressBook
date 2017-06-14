@@ -40,36 +40,7 @@
     </div>
 </div>
 @section scripts{
-    <script>
-        (function () {
-            angular.module("myWebApp")
-                .factory('$peopleService', PeopleService)
-
-            PeopleService.$inject = ['$http'];
-
-            function PeopleService($http) {
-                return {
-                    getPeople: _getPeople
-                };
-
-
-                function _getPeople() {
-                    console.log("getting people...");
-                    return $http.get('/api/people')
-                        .then(onSuccessGetPeople)
-                        .catch(onError);
-                }
-                function onSuccessGetPeople(response) {
-                    console.log("successfully receieved data");
-                    return response.data;
-                }
-                function onError() {
-                    console.log("Sucks");
-                }
-            }
-        })();
-    </script>
-
+<script src="~/Scripts/myWebApp/myWebApp.factory.people.js"></script>
     <script type="text/javascript">
         (function () {
             angular.module('myWebApp')
@@ -97,11 +68,12 @@
                     return $peopleService.getPeople()
                         .then(fillAddressTable);
                 }
+
                 function fillAddressTable(data) {
                     console.log("In fillAddressTable success. data:", data);
                     vm.items = data;
-
                 }
+
                 function onCompleteGetPeople() {
                     console.log("on complete get people");
                 }
