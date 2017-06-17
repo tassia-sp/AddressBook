@@ -10,6 +10,7 @@ namespace Project.Web.Controllers.Api
     [RoutePrefix("api/people")]
     public class PeopleApiController : ApiController
     {
+
         [Route(""), HttpGet]
         public HttpResponseMessage GetPeople()
         {
@@ -19,8 +20,10 @@ namespace Project.Web.Controllers.Api
         }
 
         [Route(""), HttpPost]
-        public HttpResponseMessage PostPeople()
+        public HttpResponseMessage PostPeople(Person model)
         {
+            PeopleService peopleSvc = new PeopleService();
+            int id = peopleSvc.PostPerson(model);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
     }

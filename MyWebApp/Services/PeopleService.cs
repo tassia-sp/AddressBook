@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 
 namespace MyWebApp.Services
 {
-    public class PeopleService
+    public class PeopleService : IPeopleService
     {
         public List<Person> GetPeople()
         {
@@ -41,7 +41,7 @@ namespace MyWebApp.Services
             return peopleList;
         }
 
-        public int AddPerson(Person model)
+        public int PostPerson(Person model)
         {
             int retval = 0;
             //get connection string for database from the web.config

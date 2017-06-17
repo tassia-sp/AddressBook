@@ -40,8 +40,37 @@
     </div>
 </div>
 @section scripts{
-<script src="~/Scripts/myWebApp/myWebApp.factory.people.js"></script>
+<script type="text/javascript">(function () {
+        angular.module("myWebApp")
+            .factory('$peopleService', PeopleService)
+
+        PeopleService.$inject = ['$http'];
+
+        function PeopleService($http) {
+            return {
+                getPeople: _getPeople,
+            };
+
+            function _getPeople() {
+                console.log("getting people...");
+                return $http.get('/api/people')
+                    .then(onSuccessGetPeople)
+                    .catch(onError);
+            }
+
+            function onSuccessGetPeople(response) {
+                console.log("In onSuccessGetPeople");
+                return response.data;
+            }
+
+            function onError() {
+                console.log("In PeopleService.onError");
+            }
+        }
+    })();
+    </script>
     <script type="text/javascript">
+
         (function () {
             angular.module('myWebApp')
                 .controller("peopleController", PeopleController)
@@ -54,7 +83,7 @@
 
                 vm.items = null;
                 vm.getPeople = _getPeople;
-
+                vm.edit = _edit;
 
                 render();
 
@@ -78,6 +107,10 @@
                     console.log("on complete get people");
                 }
 
+                function _edit(item) {
+                    var id = item.id;
+                    window.location.href = "/people/edit/" + id;
+                }
             }
         })();
     </script>
