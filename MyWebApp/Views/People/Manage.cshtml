@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<input class="hidden" value="@Model.Item" id="personId" />
+<input class="hidden" style="display:none" value="@Model.Item" id="personId" />
 <h2 style="padding-top:30px; text-align: center">Manage</h2>
 <div class="container-fluid" ng-controller="peopleController as ctrl">
     <form name="personForm" id="personForm" role="form" novalidate>
@@ -29,7 +29,7 @@
             </select>
             <p class="help-block" ng-show="personForm.recommended.$error.required && personForm.recommended.$touched">Required</p>
         </div>
-        <button type="submit" class="btn btn-primary" ng-click="ctrl.submit(item)">Submit</button>
+        <button type="submit" class="btn-lg btn-primary" ng-click="ctrl.submit(item)">Submit</button>
     </form>
 </div>
 
